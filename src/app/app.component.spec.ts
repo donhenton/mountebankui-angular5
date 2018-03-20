@@ -5,6 +5,10 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {Router} from '@angular/router';
 import routes from './../../testing/testRoutes';
 import { HelpPageComponent } from './pages/help-page/help-page.component';
+/**
+ * more on router testing : https://codecraft.tv/courses/angular/unit-testing/routing/
+ */
+
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

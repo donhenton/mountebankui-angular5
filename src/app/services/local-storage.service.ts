@@ -4,7 +4,7 @@ import { ILocalStorage } from './ilocal-storage';
 @Injectable()
 export class LocalStorageService implements ILocalStorage {
 
-  private MOUNTEBANK_KEY = 'ls.mountebank_collection';
+  public static readonly MOUNTEBANK_KEY = 'ls.mountebank_collection';
   // store under key ls.mountebank_collection
   constructor(@Inject('LOCALSTORAGE') private localStorage) {
 
