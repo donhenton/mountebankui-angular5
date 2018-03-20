@@ -8,13 +8,15 @@ import { HelpPageComponent } from './pages/help-page/help-page.component';
 import { JsonPageComponent } from './pages/json-page/json-page.component';
 import { ImportPageComponent } from './pages/import-page/import-page.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 const appRoutes: Routes = [
   { path: 'help', component: HelpPageComponent },
   { path: 'import', component: ImportPageComponent },
   { path: 'json', component: JsonPageComponent },
-  { path: 'settings', component: SettingsPageComponent }
-
+  { path: 'settings', component: SettingsPageComponent },
+  { path: 'home', component: HomePageComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 
 
 ];
@@ -26,7 +28,8 @@ const appRoutes: Routes = [
     HelpPageComponent,
     JsonPageComponent,
     ImportPageComponent,
-    SettingsPageComponent
+    SettingsPageComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
