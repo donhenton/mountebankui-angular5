@@ -10,6 +10,7 @@ import { ImportPageComponent } from './pages/import-page/import-page.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LocalStorageModule} from './modules/local-storage/local-storage.module';
+import { LocalStorageService } from './services/local-storage.service';
 
 const appRoutes: Routes = [
   { path: 'help', component: HelpPageComponent },
@@ -40,7 +41,7 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [LocalStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
