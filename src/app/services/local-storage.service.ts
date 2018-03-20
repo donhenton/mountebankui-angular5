@@ -11,11 +11,11 @@ export class LocalStorageService implements ILocalStorage {
   }
 
 
-  set(key: string, item: Array<Object> | Object) {
+  set(key: string, item: Array<any> | any) {
 
     localStorage.setItem(key, JSON.stringify(item));
   }
-  get(key: string): Object | Array<Object> {
+  get(key: string): any | Array<any> {
 
     const r: string = localStorage.getItem(key);
     return JSON.parse(r);

@@ -18,4 +18,13 @@ describe('LocalStorageService', () => {
   it('should be created', inject([LocalStorageService], (service: LocalStorageService) => {
     expect(service).toBeTruthy();
   }));
+
+  it('should be able to get and recieve', inject([LocalStorageService], (service: LocalStorageService) => {
+     service.set('bonzo', {results: 'get a job'});
+     const t = service.get('bonzo');
+     expect(t.results).toEqual('get a job');
+  }));
+
+
+
 });

@@ -1,5 +1,5 @@
 export interface ILocalStorage {
-    set(key: string, item: object | Array<object>)  ;
-    get(key: string): object | Array<object>;
+    set(key: string, item: any | Array<any>)  ;
+    get(key: string): any | Array<any>;
 
 }
