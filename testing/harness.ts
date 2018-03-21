@@ -6,6 +6,13 @@ export  class TestHarness {
      return harness;
  }
 
+// comparisions are always on UNFORMATTED JSON strings
+ stringify(obj) {
+     return JSON.stringify(obj, null);
+ }
+
+
+
  getEditDistance(a: string, b: string) {
      // console.log(`a ${(typeof a)}`);
     if (a.length === 0) { return b.length; }

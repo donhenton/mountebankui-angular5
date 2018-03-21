@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponent } from './app.component';
+import { HttpModule } from '@angular/http';
 import { HelpPageComponent } from './pages/help-page/help-page.component';
 import { JsonPageComponent } from './pages/json-page/json-page.component';
 import { ImportPageComponent } from './pages/import-page/import-page.component';
@@ -11,6 +12,8 @@ import { SettingsPageComponent } from './pages/settings-page/settings-page.compo
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LocalStorageModule} from './modules/local-storage/local-storage.module';
 import { LocalStorageService } from './services/local-storage.service';
+import { ImpostersService } from './services/imposters.service';
+import { MountebankService } from './services/mountebank.service';
 
 const appRoutes: Routes = [
   { path: 'help', component: HelpPageComponent },
@@ -34,14 +37,14 @@ const appRoutes: Routes = [
     HomePageComponent
   ],
   imports: [
+    HttpModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     LocalStorageModule,
-    BrowserModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [LocalStorageService],
+  providers: [LocalStorageService, ImpostersService, MountebankService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

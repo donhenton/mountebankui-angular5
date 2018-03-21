@@ -105,7 +105,8 @@ describe('ImpostersService', () => {
     const exportedStuff = imService.exportCollection();
 
     const expectedStuffObj = harness.getHarness().imposterTest.newCollection;
-    const expectedStuff: string = JSON.stringify(expectedStuffObj, null);
+
+    const expectedStuff: string = harness.stringify(expectedStuffObj);
     // console.log('exported\n\n\n' + exportedStuff + '\n\n\n');
     // console.log('expected\n\n\n' + expectedStuff + '\n\n\n');
     // console.log(typeof expectedStuff);
