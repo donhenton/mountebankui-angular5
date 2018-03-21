@@ -4,9 +4,10 @@ import { LocalStorageService } from './local-storage.service';
 @Injectable()
 export class ImpostersService {
 
+
   public static readonly LS_KEY = 'mountebank_collection';
   private currentCollectionIdx = 0;
-  private collection: any[] = [];
+  public collection: any[] = [];
 
   constructor(private localStorageService: LocalStorageService) {
     const ls = this.localStorageService.get(ImpostersService.LS_KEY);
@@ -76,6 +77,7 @@ export class ImpostersService {
   }
 
   save() {
+    // console.log(`2\n\n ${JSON.stringify(this.collection)}`);
     this.localStorageService.set(ImpostersService.LS_KEY, this.collection);
   }
 
@@ -128,6 +130,11 @@ export class ImpostersService {
   importCollection(collectionAsString: string) {
     this.collection = JSON.parse(collectionAsString);
     // save should occur through the watch
+  }
+
+  update(idx: number, newData: any)  {
+    this.collection[idx] = newData;
+    this.save();
   }
 
 }

@@ -1,3 +1,94 @@
-<p>
-  settings-page works!
-</p>
+<div class="grouping-box">
+  <h3>Collection Maintenance</h3>
+
+  <!-- track by item.id -->
+  <form class="form-horizontal" id="settingsForm" [formGroup]="settingsForm">
+    <div class="row">
+
+      <div class="form-group">
+        <label class="control-label col-sm-1" for="name">Current</label>
+        <div class="col-sm-6">
+          <select (change)="changeCollection($event)" formControlName="collectionSelectorIdx" class="form-control" id="collectionSelector">
+            <option *ngFor="let item of this.collectionItems; trackBy: trackByFn" [selected]="item.id === this.collectionSelectorIdx" value="{{item.id}}">{{item.description}}</option>
+          </select>
+        </div>
+
+        <div class="col-sm-1">
+          <button (click)="createNewCollection()" class="center-block btn btn-primary btn-sm">
+            <i class="glyphicon glyphicon-plus-sign"></i> Add New</button>
+
+        </div>
+        <div class="col-sm-1">
+          <button [disabled]="collectionItems.length === 1" (click)="deleteCollection()" class="center-block btn btn-danger btn-sm">
+            <i class="glyphicon glyphicon-minus-sign"></i> Delete Current </button>
+        </div>
+      </div>
+
+    </div>
+
+
+    <br>
+    <div class="row">
+      <form name="settingsForm" [formGroup]="settingsForm" class="form-horizontal">
+
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="name">Port</label>
+
+          <div class="col-sm-2">
+            <input type="text" class="form-control" id="port" name="port" formControlName="port" required>
+          </div>
+          <div class="col-sm-2">
+
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="name">Description</label>
+
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="port" name="port" formControlName="description" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="useCORs">Use Cors?</label>
+
+          <div class="col-sm-1">
+            <input type="checkbox" class="form-control" id="useCORs" name="useCORs" formControlName="useCORs" required>
+
+          </div>
+          <div class="col-sm-9">
+            <em>(will add a default OPTIONs response and use Origin Url below for all responses)</em>
+          </div>
+        </div>
+        <div id="cors-values" *ngIf="this.settingsForm.get('useCORs').value">
+          <div   class="form-group">
+            <label class="control-label col-sm-2" for="CORsUrl">CORS Origin Full Url</label>
+
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="CORsOrigin" name="CORsOrigin" formControlName="CORsOrigin" required>
+
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="CORsUrl">CORs Headers</label>
+
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="allowedCORsHeaders" name="allowedCORsHeaders" formControlName="allowedCORsHeaders"
+                required>
+
+            </div>
+          </div>
+          <div  class="form-group">
+            <label class="control-label col-sm-2" for="CORsUrl">CORs Methods</label>
+
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="allowedCORsMethods" name="allowedCORsMethods" formControlName="allowedCORsMethods"
+                required>
+
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </form>
+</div>
