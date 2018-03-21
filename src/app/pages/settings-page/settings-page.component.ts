@@ -35,10 +35,9 @@ export class SettingsPageComponent implements OnInit {
 
   }
 
-
-
   private sendToCurrentImposter(data) {
 
+    // this performs a right hand merge for keys that are the same
     const merged = { ... this.currentImposter, ...data };
     this.currentImposter = merged;
     // console.log(`1\n\n ${JSON.stringify(this.currentImposter)}`);
@@ -106,16 +105,12 @@ export class SettingsPageComponent implements OnInit {
 
   createNewCollection() {
 
-
     this.impostersService.createNewCollection();
     this.currentImposter = this.impostersService.getCurrentImposter();
     this.collectionItems = this.impostersService.getCollectionItems();
     this.currentCollectionIdx = this.currentImposter.id; // the index into the collection array
     this.collectionSelectorIdx = this.currentCollectionIdx.toString();
     this.settingsForm.setValue(this.getFromCurrentImposter());
-
-
-
 
   }
 
