@@ -12,11 +12,9 @@ export class LocalStorageService implements ILocalStorage {
   }
 
   setPrefix(ps: string) {
-    if (!ps) {
-      this.preFix = 'ls';
-    } else {
+
       this.preFix = ps;
-    }
+
   }
 
   clear() {
