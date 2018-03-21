@@ -38,7 +38,7 @@ describe('ImpostersService', () => {
 
   });
 
-  it('should find current imposter', () => {
+  it('Should find current imposter', () => {
 
     const currentImposter = imService.getCurrentImposter();
     expect(currentImposter).not.toBeNull();
@@ -61,7 +61,7 @@ describe('ImpostersService', () => {
 
 
   });
-  it('Should only be one item and be selected', () => {
+  it('Should set to 2nd item', () => {
     imService.setCollectionTo(1);
     const collection = imService.getCollectionItems();
     expect(collection.length).toEqual(2);

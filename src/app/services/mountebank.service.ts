@@ -77,7 +77,7 @@ export class MountebankService {
    * @param format true if you want formatted output
    * @returns {mountebankService.exports} the mountebank json as a string
    */
-  translate(data, format: boolean = false) {
+  translate(data: any , format: boolean = false): string {
 
     const translated: any = {};
     translated.port = data.port;

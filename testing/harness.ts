@@ -8,7 +8,7 @@ export  class TestHarness {
 
 // comparisions are always on UNFORMATTED JSON strings
  stringify(obj) {
-     return JSON.stringify(obj, null);
+     return JSON.stringify(obj);
  }
 
 
