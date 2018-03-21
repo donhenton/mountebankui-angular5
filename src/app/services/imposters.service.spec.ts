@@ -102,13 +102,15 @@ describe('ImpostersService', () => {
     imService.setCollectionTo(0);
     imService.deleteCollectionAt(1);
 
-    const exportedStuff = imService.exportCollection();
+    const exportedStuffFormattedStr = imService.exportCollection(); // defaults to formatted
+    const exportedObj = JSON.parse(exportedStuffFormattedStr);
+    const exportedStuff = harness.stringify(exportedObj);
 
     const expectedStuffObj = harness.getHarness().imposterTest.newCollection;
 
     const expectedStuff: string = harness.stringify(expectedStuffObj);
-    // console.log('exported\n\n\n' + exportedStuff + '\n\n\n');
-    // console.log('expected\n\n\n' + expectedStuff + '\n\n\n');
+    console.log('exported\n\n\n' + exportedStuff + '\n\n\n');
+    console.log('expected\n\n\n' + expectedStuff + '\n\n\n');
     // console.log(typeof expectedStuff);
     const dist = harness.getEditDistance(exportedStuff, expectedStuff);
     expect(dist).toEqual(0);

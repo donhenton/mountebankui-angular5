@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImportPageComponent } from './import-page.component';
+import { ImpostersService } from '../../services/imposters.service';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { LocalStorageModule } from '../../modules/local-storage/local-storage.module';
 
 describe('ImportPageComponent', () => {
   let component: ImportPageComponent;
@@ -8,7 +11,13 @@ describe('ImportPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ImportPageComponent ]
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        LocalStorageModule
+      ],
+      declarations: [ ImportPageComponent ],
+      providers: [ImpostersService, LocalStorageService]
     })
     .compileComponents();
   }));
