@@ -113,7 +113,7 @@ describe('ImpostersService', () => {
     expect(dist).toEqual(0);
 
     // now put it back
-    console.log(typeof collectionBeforeStr);
+    // console.log(typeof collectionBeforeStr);
     imService.importCollection(collectionBeforeStr);
     const collection = imService.getCollectionItems();
     expect(collection.length).toEqual(2);
