@@ -123,13 +123,14 @@ export class ImpostersService {
   }
 
   exportCollection(): string {
-    return  JSON.stringify(this.collection);
+    return  JSON.stringify(this.collection, null, '  ');
 
   }
 
   importCollection(collectionAsString: string) {
+
     this.collection = JSON.parse(collectionAsString);
-    // save should occur through the watch
+    this.save();
   }
 
   update(idx: number, newData: any)  {
