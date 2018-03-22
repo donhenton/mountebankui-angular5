@@ -58,7 +58,8 @@ export class HomePageComponent implements OnInit {
      this.currentCollection = merged;
     console.log(`1\n\n ${JSON.stringify(this.currentCollection)}`);
     this.impostersService.update(this.currentCollectionIdx, merged);
-    this.collectionItems = this.impostersService.getCollectionItems();
+     this.collectionItems = this.impostersService.getCollectionItems();
+
   }
 
   /**
