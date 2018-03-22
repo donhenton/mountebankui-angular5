@@ -6,12 +6,13 @@
     <div class="row">
 
       <div class="form-group">
-        <label class="control-label col-sm-1" for="name">Current</label>
+        <label class="control-label col-sm-1" for="name">Current</label>     
         <div class="col-sm-6">
-          <select (change)="changeCollection($event)" formControlName="collectionSelectorIdx" class="form-control" id="collectionSelector">
-            <option *ngFor="let item of this.collectionItems; trackBy: trackByFn" [selected]="item.id === this.collectionSelectorIdx" value="{{item.id}}">{{item.description}}</option>
-          </select>
+
+           <app-imposter-selector (change)="changeCollection($event)" formControlName="collectionSelectorIdx" [collectionItems]="this.collectionItems" [parentForm] = "this.settingsForm"></app-imposter-selector>
+           
         </div>
+
 
         <div class="col-sm-1">
           <button (click)="createNewCollection()" class="center-block btn btn-primary btn-sm">

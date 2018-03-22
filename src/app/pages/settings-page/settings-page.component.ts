@@ -68,7 +68,7 @@ export class SettingsPageComponent implements OnInit {
 
   }
 
-  changeCollection(ev) {
+  changeCollection() {
 
     this.collectionSelectorIdx = this.settingsForm.get('collectionSelectorIdx').value;
     this.currentCollectionIdx = parseInt(this.collectionSelectorIdx, 10);

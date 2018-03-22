@@ -1,0 +1,5 @@
+<div [formGroup]="this.parentForm">
+    <select  (change)="this.handleChange($event)" formControlName={{this.formControlName}} class="form-control" id={{this.formControlName}}>
+      <option *ngFor="let item of this.collectionItems; trackBy: trackByFn" [selected]="item.id === this._value" value="{{item.id}}">{{item.description}}</option>
+    </select>
+</div>
