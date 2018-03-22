@@ -14,7 +14,7 @@ import { LocalStorageModule} from './modules/local-storage/local-storage.module'
 import { LocalStorageService } from './services/local-storage.service';
 import { ImpostersService } from './services/imposters.service';
 import { MountebankService } from './services/mountebank.service';
-import { AlertModule} from 'ngx-bootstrap/alert';
+import { AlertModule, TooltipModule} from 'ngx-bootstrap';
 import { ImposterSelectorComponent } from './shared/imposter-selector/imposter-selector.component';
 
 const appRoutes: Routes = [
@@ -43,6 +43,7 @@ const appRoutes: Routes = [
     HttpModule,
     BrowserModule,
     AlertModule.forRoot(),
+    TooltipModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     LocalStorageModule,

@@ -47,6 +47,7 @@ export class ImpostersService {
     const newResponse = this.getSampleResponse();
     newImposter.responses =
       [newResponse];
+      newImposter.documentation = 'enter docs here',
     newImposter.match = {
       'path_match': {
         'type': 'equals',
@@ -54,6 +55,7 @@ export class ImpostersService {
       },
       'injection': { 'use': false, 'body': '' },
       'verb': 'GET',
+
       'headers': [],
       'query_params': [],
       'body_match':
