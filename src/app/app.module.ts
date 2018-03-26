@@ -14,8 +14,9 @@ import { LocalStorageModule} from './modules/local-storage/local-storage.module'
 import { LocalStorageService } from './services/local-storage.service';
 import { ImpostersService } from './services/imposters.service';
 import { MountebankService } from './services/mountebank.service';
-import { AlertModule, TooltipModule, TabsModule} from 'ngx-bootstrap';
+import { AlertModule, TooltipModule, TabsModule, AccordionModule} from 'ngx-bootstrap';
 import { ImposterSelectorComponent } from './shared/imposter-selector/imposter-selector.component';
+import { HeadersComponent } from './shared/headers/headers.component';
 
 const appRoutes: Routes = [
   { path: 'help', component: HelpPageComponent },
@@ -37,7 +38,8 @@ const appRoutes: Routes = [
     ImportPageComponent,
     SettingsPageComponent,
     HomePageComponent,
-    ImposterSelectorComponent
+    ImposterSelectorComponent,
+    HeadersComponent
   ],
   imports: [
     HttpModule,
@@ -45,6 +47,7 @@ const appRoutes: Routes = [
     AlertModule.forRoot(),
     TooltipModule.forRoot(),
     TabsModule.forRoot(),
+    AccordionModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     LocalStorageModule,

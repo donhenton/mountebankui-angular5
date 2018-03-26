@@ -103,6 +103,64 @@
           </div>
 
         </div>
+        <div class="row">                                                                                                                             
+          <input id="injectionUseForResponse" name="injectionUseForResponse" type="checkbox"  ng-click="home.swapInjectionForResponse()"  ng-model="home.buffer.data.imposters[home.currentImposterIdx].responses[home.currentResponseIdx].injection.use">  
+
+          <label  ng-if="!home.buffer.data.imposters[home.currentImposterIdx].responses[home.currentResponseIdx].injection.use" for="injectionUseForResponse"><em style="padding:5px">Click To Use Injection <span class="label label-danger"> All other criteria will be lost</span></em></label> 
+
+          <label  ng-if="home.buffer.data.imposters[home.currentImposterIdx].responses[home.currentResponseIdx].injection.use"  for="injectionUseForResponse"><em style="padding:5px">Click To Use Standard <span class="label label-danger"> Injection criteria will be lost</span></em></label> 
+
+      </div>
+
+      <div ng-if="!home.buffer.data.imposters[home.currentImposterIdx].responses[home.currentResponseIdx].injection.use">
+          <div class="row">
+              <div class="form-group">
+                  <label class="control-label col-sm-1" for="status">Status</label> 
+                  <div class="col-sm-2">
+                      <input ng-blur="home.inputChange(this, $event)" type="text" class="form-control"   id="response_status" name="status" ng-model="home.buffer.data.imposters[home.currentImposterIdx].responses[home.currentResponseIdx].status" required>
+                  </div>
+              </div>
+          </div>
+
+
+
+
+          <i ng-if="!home.buffer.data.imposters[home.currentImposterIdx].responses[home.currentResponseIdx].injection.use" >(Click on the section below)</i> 
+          <accordion close-others="false">
+              <accordion-group heading="Headers">
+                  <app-headers array="home.buffer.data.imposters[home.currentImposterIdx].responses[home.currentResponseIdx].headers"></app-headers>
+              </accordion-group>
+              <accordion-group heading="Body">
+                  <div class="form-group grouping-box">
+                      <div class="internalHeaderRow">
+
+                          <span 
+                              ng-if="home.isJsonString(home.buffer.data.imposters[home.currentImposterIdx].responses[home.currentResponseIdx].body)"
+                              >
+                              <button ng-click="home.formatJson('responseBody', true)" class="btn btn-primary btn-xs">Pretty Print JSON</button>
+                              <button ng-click="home.formatJson('responseBody', false)" class="btn btn-primary btn-xs">Unformat JSON</button>
+                          </span>
+                      </div>
+                      <textarea ng-blur="home.inputChange(this, $event)" class="form-control" ng-model="home.buffer.data.imposters[home.currentImposterIdx].responses[home.currentResponseIdx].body" style="width:98%;height:150px"></textarea>
+                  </div>
+              </accordion-group>
+              <accordion-group heading="Decorate">
+                  <div class="injectionContainer">
+                      <div>
+                          <button class="btn btn-small" ng-click="home.formatDecorate(home.buffer.data.imposters[home.currentImposterIdx].responses[home.currentResponseIdx])"   href="">Format</button>
+                          <a  ng-click="$event.preventDefault(); home.doHelpDisplay('decorate')" class="pull-right" href="">Decoration Help</a>
+                      </div>
+                      <br>
+                      <div>
+                          <textarea  ng-blur="home.inputChange(this, $event)" class="form-control" ng-model="home.buffer.data.imposters[home.currentImposterIdx].responses[home.currentResponseIdx].decorate" style="width:100%;height:350px"></textarea>
+                      </div>
+                  </div>
+              </accordion-group>
+
+
+
+          </accordion>
+      </div> <!-- end ng-if not using inject response -->
 
 
       </tab>
