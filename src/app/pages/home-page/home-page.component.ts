@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ImpostersService } from '../../services/imposters.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { DecorateHelpComponent } from './../help/decorate-help/decorate-help.component';
+import { InjectionHelpComponent } from './../help/injection-help/injection-help.component';
 
 @Component({
   selector: 'app-home-page',
@@ -17,8 +21,9 @@ export class HomePageComponent implements OnInit {
   collectionSelectorIdx = '0';
   currentImposterIdx;
   currentResponseIdx = 0;
+  bsModalRef: BsModalRef;
 
-  constructor(private impostersService: ImpostersService, private fb: FormBuilder) {
+  constructor(private modalService: BsModalService, private impostersService: ImpostersService, private fb: FormBuilder) {
 
   }
 
@@ -110,20 +115,6 @@ export class HomePageComponent implements OnInit {
 
   }
 
-  /// reponse CRUD
-  deleteResponse() {
-
-  }
-
-  addResponse() {
-
-
-  }
-  moveResponseTo(idx) {
-
-  }
-
-
   trackByFn(index, item) {
     return index;
   }
@@ -131,6 +122,8 @@ export class HomePageComponent implements OnInit {
   tabSelect(type) {
     console.log(type);
   }
+
+  ////////////// fill these in ///////////////////////
 
   isJsonString(data) {
     return true;
@@ -148,6 +141,17 @@ export class HomePageComponent implements OnInit {
 
   doHelpDisplay(type) {
 
+    const initialState = {};
+
+
+    if (type === 'injection') {
+      this.bsModalRef = this.modalService.show(InjectionHelpComponent, { initialState });
+
+    }
+    if (type === 'decorate') {
+      this.bsModalRef = this.modalService.show(DecorateHelpComponent, { initialState });
+
+    }
   }
 
   swapInjectionForResponse() {
@@ -155,6 +159,20 @@ export class HomePageComponent implements OnInit {
   }
 
   formatInjection(stuff) {
+
+  }
+
+
+  /// reponse CRUD
+  deleteResponse() {
+
+  }
+
+  addResponse() {
+
+
+  }
+  moveResponseTo(idx) {
 
   }
 
