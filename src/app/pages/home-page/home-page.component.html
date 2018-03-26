@@ -39,12 +39,13 @@
     </div>
     <br>
     <div class="row pull-left">
- 
+
       <button (click)="this.addImposter()" class="btn btn-med btn-primary">Add New</button>
 
       <button [disabled]="this.currentCollection.imposters.length === 1" (click)="this.deleteImposter()" class="btn btn-med btn-danger">Delete</button>
 
-      <button style="margin-top:5px" [disabled]="this.currentCollection.imposters.length === 1" (click)="this.sortImposters()" class="btn btn-med btn-primary">Sort Imposters</button>
+      <button style="margin-top:5px" [disabled]="this.currentCollection.imposters.length === 1" (click)="this.sortImposters()"
+        class="btn btn-med btn-primary">Sort Imposters</button>
     </div>
 
   </div>
@@ -55,11 +56,63 @@
       <div class="form-group clearfix">
         <label class="control-label col-sm-2" for="status">Documentation</label>
         <div class="col-sm-9">
-          <input type="text" (input)="this.inputChange(this, $event)" class="form-control" id="documentation" name="documentation" [(ngModel)]="this.currentCollection.imposters[this.currentImposterIdx].documentation">
+          <input type="text" (input)="this.inputChange(this, $event)" class="form-control" id="documentation" name="documentation"
+            [(ngModel)]="this.currentCollection.imposters[this.currentImposterIdx].documentation">
         </div>
       </div>
 
     </div>
+    <tabset justified="true">
+      <tab heading="Response" (select)="this.tabSelect('Response')">
+
+        <br>
+        <div class="row">
+
+          <div class="form-group paginatorBox">
+            <table id="responsePaginatorTable">
+              <tr>
+                <td>
+                  <em>Selected Response</em>
+                </td>
+                <td>
+                  <button ng-click="this.addResponse()" class="btn btn-primary btn-xs">
+                    <i class="glyphicon glyphicon-plus-sign"></i> Add Response</button>
+                </td>
+                <td>
+                  <button ng-disabled="this.currentCollection.imposters[this.currentImposterIdx].responses.length == 1" ng-click="this.deleteResponse()"
+                    class="btn btn-danger btn-xs">
+                    <i class="glyphicon glyphicon-minus-sign"></i> Delete Current Response</button>
+                </td>
+              </tr>  
+              <tr>
+                <td colspan="3">
+                  <span *ngFor="let item of this.currentCollection.imposters[this.currentImposterIdx].responses; let _index = index;trackBy: trackByFn">
+                    <span *ngIf="_index === this.currentResponseIdx" class="responseSelection selectedResponse">
+                      {{(_index + 1)}}
+
+                    </span>
+                    <span *ngIf="_index !== this.currentResponseIdx" class="responseSelection notSelectedResponse">
+                      <a ng-click="$event.preventDefault(); this.moveResponseTo($index)" href="">{{_index + 1}}</a>
+
+                    </span>
+                  </span>
+                </td>
+              </tr>
+            </table>
+
+          </div>
+
+        </div>
+
+
+      </tab>
+      <tab heading="Match Criteria" (select)="this.tabSelect('Criteria')">
+
+
+      </tab>
+
+    </tabset>
   </div>
+  <!-- end right formColum -->
 
 </div>

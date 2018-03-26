@@ -114,4 +114,8 @@ export class HomePageComponent implements OnInit {
     return index;
   }
 
+  tabSelect(type) {
+    console.log(type);
+  }
+
 }
