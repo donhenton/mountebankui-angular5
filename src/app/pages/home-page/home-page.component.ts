@@ -103,12 +103,26 @@ export class HomePageComponent implements OnInit {
     const doDelete = confirm('Delete this Imposter?');
     if (doDelete) {
       this.currentCollection.imposters.splice(this.currentImposterIdx, 1);
-        this.currentImposterIdx = 0;
-        this.currentResponseIdx = 0;
-        this.save();
+      this.currentImposterIdx = 0;
+      this.currentResponseIdx = 0;
+      this.save();
     }
 
   }
+
+  /// reponse CRUD
+  deleteResponse() {
+
+  }
+
+  addResponse() {
+
+
+  }
+  moveResponseTo(idx) {
+
+  }
+
 
   trackByFn(index, item) {
     return index;
@@ -116,6 +130,28 @@ export class HomePageComponent implements OnInit {
 
   tabSelect(type) {
     console.log(type);
+  }
+
+  isJsonString(data) {
+    return true;
+  }
+  formatJson(type: string, pretty: boolean) {
+
+  }
+
+  formatDecorate(currentResponse) {
+    if (!currentResponse.decorate) {
+      currentResponse.decorate = '';
+    }
+    // currentResponse.decorate = js_beautify(currentResponse.decorate);
+  }
+
+  doHelpDisplay(type) {
+
+  }
+
+  swapInjectionForResponse() {
+
   }
 
 }
