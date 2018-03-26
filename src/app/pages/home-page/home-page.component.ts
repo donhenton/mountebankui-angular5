@@ -16,6 +16,7 @@ export class HomePageComponent implements OnInit {
   currentCollectionIdx: number;
   collectionSelectorIdx = '0';
   currentImposterItemIndex;
+  currentResponseIndex = 0;
 
   constructor(private impostersService: ImpostersService, private fb: FormBuilder) {
 
@@ -27,38 +28,27 @@ export class HomePageComponent implements OnInit {
     this.collectionSelectorIdx = this.currentCollectionIdx.toString();
     this.collectionItems = this.impostersService.getCollectionItems();
     this.currentImposterItemIndex = 0;
-    this.homeForm = this.fb.group(this.getFromCurrentImposter());
+    this.homeForm = this.fb.group({ collectionSelectorIdx: '0' });
+
 
     this.homeForm
       .valueChanges
-      .subscribe(this.sendToCurrentImposter.bind(this));
+      .subscribe(this.changeCollection.bind(this));
 
-   // console.log(JSON.stringify(this.currentCollection.imposters[0]));
-  }
-
-  selectImposter(index) {
-    this.currentImposterItemIndex = index;
-    this.homeForm.setValue(this.getFromCurrentImposter());
-  }
-
-  getFromCurrentImposter() {
-    return {
-
-      collectionSelectorIdx: this.collectionSelectorIdx,
-      documentation: this.currentCollection.imposters[this.currentImposterItemIndex].documentation
-    };
+    // console.log(JSON.stringify(this.currentCollection.imposters[0]));
   }
 
   /**
-   * handle form data changes
-   * @param data
+   * used by imposter selector
+   * @param index
    */
-  sendToCurrentImposter(data) {
-     const merged = { ... this.currentCollection, ...data };
-     this.currentCollection = merged;
-    console.log(`1\n\n ${JSON.stringify(this.currentCollection)}`);
-    this.impostersService.update(this.currentCollectionIdx, merged);
-     this.collectionItems = this.impostersService.getCollectionItems();
+  selectImposter(index) {
+    this.currentImposterItemIndex = index;
+    this.currentResponseIndex = 0;
+  }
+
+  inputChange(item, event) {
+    this.impostersService.save();
 
   }
 
@@ -73,33 +63,34 @@ export class HomePageComponent implements OnInit {
     this.currentCollectionIdx = parseInt(this.collectionSelectorIdx, 10);
     this.impostersService.setCollectionTo(this.currentCollectionIdx);
     this.currentCollection = this.impostersService.getCurrentImposter();
-    this.homeForm.setValue(this.getFromCurrentImposter());
+    // this.homeForm.setValue({collectionSelectorIdx: this.collectionSelectorIdx});
 
   }
 
-  composeImposterAlias (idx) {
-      const imposter  = this.currentCollection.imposters[idx];
-       let verb = imposter.match.verb;
-      if (imposter.match.injection.use) {
-          verb = 'INJ';
-       }
-      return 'Item ' + (idx + 1) + ' (' + verb + ')';
+  composeImposterAlias(idx) {
+    const imposter = this.currentCollection.imposters[idx];
+    let verb = imposter.match.verb;
+    if (imposter.match.injection.use) {
+      verb = 'INJ';
+    }
+    return 'Item ' + (idx + 1) + ' (' + verb + ')';
   }
 
 
   composeSortAlias(idx) {
-    const imposter  = this.currentCollection.imposters[idx];
+    const imposter = this.currentCollection.imposters[idx];
     let verb = imposter.match.verb;
     if (imposter.match.injection.use) {
-        verb = 'INJ';
+      verb = 'INJ';
     }
     const labelText = imposter.documentation;
-    return  '(' + verb + ')\n' + labelText ;
+    return '(' + verb + ')\n' + labelText;
 
   }
 
   addImposter() {
-
+    const newImposter = this.impostersService.createNewImposter();
+    this.currentCollection.imposters.push(newImposter);
   }
 
   sortImposters() {

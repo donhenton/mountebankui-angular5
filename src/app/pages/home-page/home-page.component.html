@@ -21,61 +21,45 @@
     </div>
 
   </div>
-  <hr/>
+</div>
+<!-- end homeForm -->
+<hr/>
 
-  <h3>Imposters</h3>
+<h3>Imposters</h3>
 
 
-  <div class="row">
-    <div id="itemSelectorColumn" class="col-sm-2">
-      <div class="limitY">
-        <div *ngFor="let imposter of this.currentCollection.imposters; let index = index; trackBy: trackByFn">
-          <button (click)="this.selectImposter(index)" tooltip={{imposter.documentation}} tooltip-placement="auto top" class="btn btn-sm  btn-primary pull-right" style="margin: 5px">{{this.composeImposterAlias(index)}}</button>
-        </div>
-
-      </div>
-      <br>
-      <div class="row pull-left">
-
-          <button  (click)="this.addImposter()" class="btn btn-med btn-primary">Add New</button>
-
-          <button (disabled)="this.currentCollection.imposters.length == 1" (click)="this.deleteImposter()"  class="btn btn-med btn-danger">Delete</button>
-
-          <button style="margin-top:5px" (disabled)="this.currentCollection.imposters.length == 1" (click)="this.sortImposters()"  class="btn btn-med btn-primary">Sort Imposters</button>
+<div class="row">
+  <div id="itemSelectorColumn" class="col-sm-2">
+    <div class="limitY">
+      <div *ngFor="let imposter of this.currentCollection.imposters; let index = index; trackBy: trackByFn">
+        <button (click)="this.selectImposter(index)" tooltip={{imposter.documentation}} tooltip-placement="auto top" class="btn btn-sm  btn-primary pull-right"
+          style="margin: 5px">{{this.composeImposterAlias(index)}}</button>
       </div>
 
     </div>
+    <br>
+    <div class="row pull-left">
 
-    <div id="formColumn" class="col-sm-10">
-        <div class="row">
-           
-            <div class="form-group clearfix">
-                   <label class="control-label col-sm-2" for="status">Documentation</label> 
-                   <div class="col-sm-9">
-                       <input type="text" class="form-control"   id="imposter_documentation" name="status" formControlName="documentation">
-                   </div>
-            </div>
-            
-        </div>
+      <button (click)="this.addImposter()" class="btn btn-med btn-primary">Add New</button>
+
+      <button (disabled)="this.currentCollection.imposters.length == 1" (click)="this.deleteImposter()" class="btn btn-med btn-danger">Delete</button>
+
+      <button style="margin-top:5px" (disabled)="this.currentCollection.imposters.length == 1" (click)="this.sortImposters()" class="btn btn-med btn-primary">Sort Imposters</button>
     </div>
 
   </div>
 
+  <div id="formColumn" class="col-sm-10">
+    <div class="row">
 
+      <div class="form-group clearfix">
+        <label class="control-label col-sm-2" for="status">Documentation</label>
+        <div class="col-sm-9">
+          <input type="text" (input)="this.inputChange(this, $event)" class="form-control" id="imposter_documentation" name="status" [(ngModel)]="this.currentCollection.imposters[this.currentImposterItemIndex].documentation">
+        </div>
+      </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </div>
+  </div>
 
 </div>
-<!-- end homeForm -->
