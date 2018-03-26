@@ -15,8 +15,8 @@ export class HomePageComponent implements OnInit {
   collectionItems: any[];
   currentCollectionIdx: number;
   collectionSelectorIdx = '0';
-  currentImposterItemIndex;
-  currentResponseIndex = 0;
+  currentImposterIdx;
+  currentResponseIdx = 0;
 
   constructor(private impostersService: ImpostersService, private fb: FormBuilder) {
 
@@ -27,7 +27,7 @@ export class HomePageComponent implements OnInit {
     this.currentCollectionIdx = this.currentCollection.id; // the index into the collection array
     this.collectionSelectorIdx = this.currentCollectionIdx.toString();
     this.collectionItems = this.impostersService.getCollectionItems();
-    this.currentImposterItemIndex = 0;
+    this.currentImposterIdx = 0;
     this.homeForm = this.fb.group({ collectionSelectorIdx: '0' });
 
 
@@ -43,13 +43,16 @@ export class HomePageComponent implements OnInit {
    * @param index
    */
   selectImposter(index) {
-    this.currentImposterItemIndex = index;
-    this.currentResponseIndex = 0;
+    this.currentImposterIdx = index;
+    this.currentResponseIdx = 0;
   }
 
   inputChange(item, event) {
-    this.impostersService.save();
+    this.save();
+  }
 
+  save() {
+    this.impostersService.save();
   }
 
   /**
@@ -59,12 +62,10 @@ export class HomePageComponent implements OnInit {
   changeCollection() {
 
     this.collectionSelectorIdx = this.homeForm.get('collectionSelectorIdx').value;
-    this.currentImposterItemIndex = 0;
+    this.currentImposterIdx = 0;
     this.currentCollectionIdx = parseInt(this.collectionSelectorIdx, 10);
     this.impostersService.setCollectionTo(this.currentCollectionIdx);
     this.currentCollection = this.impostersService.getCurrentImposter();
-    // this.homeForm.setValue({collectionSelectorIdx: this.collectionSelectorIdx});
-
   }
 
   composeImposterAlias(idx) {
@@ -91,6 +92,7 @@ export class HomePageComponent implements OnInit {
   addImposter() {
     const newImposter = this.impostersService.createNewImposter();
     this.currentCollection.imposters.push(newImposter);
+    this.save();
   }
 
   sortImposters() {
@@ -98,7 +100,13 @@ export class HomePageComponent implements OnInit {
   }
 
   deleteImposter() {
-
+    const doDelete = confirm('Delete this Imposter?');
+    if (doDelete) {
+      this.currentCollection.imposters.splice(this.currentImposterIdx, 1);
+        this.currentImposterIdx = 0;
+        this.currentResponseIdx = 0;
+        this.save();
+    }
 
   }
 

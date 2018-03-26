@@ -39,12 +39,12 @@
     </div>
     <br>
     <div class="row pull-left">
-
+ 
       <button (click)="this.addImposter()" class="btn btn-med btn-primary">Add New</button>
 
-      <button (disabled)="this.currentCollection.imposters.length == 1" (click)="this.deleteImposter()" class="btn btn-med btn-danger">Delete</button>
+      <button [disabled]="this.currentCollection.imposters.length === 1" (click)="this.deleteImposter()" class="btn btn-med btn-danger">Delete</button>
 
-      <button style="margin-top:5px" (disabled)="this.currentCollection.imposters.length == 1" (click)="this.sortImposters()" class="btn btn-med btn-primary">Sort Imposters</button>
+      <button style="margin-top:5px" [disabled]="this.currentCollection.imposters.length === 1" (click)="this.sortImposters()" class="btn btn-med btn-primary">Sort Imposters</button>
     </div>
 
   </div>
@@ -55,7 +55,7 @@
       <div class="form-group clearfix">
         <label class="control-label col-sm-2" for="status">Documentation</label>
         <div class="col-sm-9">
-          <input type="text" (input)="this.inputChange(this, $event)" class="form-control" id="imposter_documentation" name="status" [(ngModel)]="this.currentCollection.imposters[this.currentImposterItemIndex].documentation">
+          <input type="text" (input)="this.inputChange(this, $event)" class="form-control" id="documentation" name="documentation" [(ngModel)]="this.currentCollection.imposters[this.currentImposterIdx].documentation">
         </div>
       </div>
 
