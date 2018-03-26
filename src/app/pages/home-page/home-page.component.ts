@@ -154,4 +154,8 @@ export class HomePageComponent implements OnInit {
 
   }
 
+  formatInjection(stuff) {
+
+  }
+
 }
