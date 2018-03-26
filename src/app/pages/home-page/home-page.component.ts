@@ -5,6 +5,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { DecorateHelpComponent } from './../help/decorate-help/decorate-help.component';
 import { InjectionHelpComponent } from './../help/injection-help/injection-help.component';
+import { js_beautify } from 'js-beautify';
 
 @Component({
   selector: 'app-home-page',
@@ -120,16 +121,38 @@ export class HomePageComponent implements OnInit {
   }
 
   tabSelect(type) {
-    console.log(type);
+    // console.log(type);
   }
 
   ////////////// fill these in ///////////////////////
 
   isJsonString(data) {
+
+    try {
+      JSON.parse(data);
+    } catch (e) {
+      return false;
+    }
     return true;
   }
   formatJson(type: string, pretty: boolean) {
+    let ref = null;
+    if (type === 'responseBody') {
+      ref = this.currentCollection.imposters[this.currentImposterIdx].responses[this.currentResponseIdx];
+    } else {
+      ref = this.currentCollection.imposters[this.currentImposterIdx].match.body_match;
+    }
+    // body
+    if (this.isJsonString(ref.body)) {
+      const jRef = JSON.parse(ref.body);
+      if (pretty === true) {
+        ref.body = JSON.stringify(jRef, null, '  ');
+      } else {
+        ref.body = JSON.stringify(jRef);
+      }
 
+    }
+    this.save();
   }
 
   formatDecorate(currentResponse) {
@@ -137,6 +160,7 @@ export class HomePageComponent implements OnInit {
       currentResponse.decorate = '';
     }
     // currentResponse.decorate = js_beautify(currentResponse.decorate);
+    this.save();
   }
 
   doHelpDisplay(type) {
@@ -154,26 +178,68 @@ export class HomePageComponent implements OnInit {
     }
   }
 
+  /**
+   * called when swapping to injection for the current response section
+   * @returns {undefined}
+  */
   swapInjectionForResponse() {
 
+    if (this.currentCollection.imposters[this.currentImposterIdx].responses[this.currentResponseIdx].injection.use) {
+      // blank out the current response
+      this.currentCollection.imposters[this.currentImposterIdx].responses[this.currentResponseIdx] =
+        this.impostersService.getSampleResponse();
+      this.currentCollection.imposters[this.currentImposterIdx].responses[this.currentResponseIdx].injection.use = true;
+      this.save();
+    }
   }
 
-  formatInjection(stuff) {
+  /**
+   * called when swapping to injection for the match section
+   *
+   * @returns {undefined}
+   */
+  swapInjectionForMatch() {
 
+    if (this.currentCollection.imposters[this.currentImposterIdx].match.injection.use) {
+      const responseCopy = JSON.parse(JSON.stringify(this.currentCollection.imposters[this.currentImposterIdx].responses));
+      this.currentCollection.imposters[this.currentImposterIdx] =
+        this.impostersService.createNewImposter();
+      this.currentCollection.imposters[this.currentImposterIdx].responses = responseCopy;
+      this.currentCollection.imposters[this.currentImposterIdx].match.injection.use = true;
+    }
+    this.save();
   }
 
+  formatInjection(injectionSourceParent) {
+    injectionSourceParent.body = js_beautify(injectionSourceParent.body);
+    this.save();
+  }
 
   /// reponse CRUD
   deleteResponse() {
-
+    const doDelete = confirm('Delete this Response?');
+    if (doDelete) {
+      this.currentCollection.imposters[this.currentImposterIdx]
+                .responses.splice(this.currentResponseIdx, 1);
+        this.currentResponseIdx = 0;
+    }
+    this.save();
   }
 
   addResponse() {
-
-
+    this.currentCollection.imposters[this.currentImposterIdx]
+      .responses.push(
+        this.impostersService.getSampleResponse());
+    this.currentResponseIdx = this.currentResponseIdx + 1;
+    this.save();
   }
+  /**
+   * called when moving thru the responses
+   * @param idx
+   */
   moveResponseTo(idx) {
 
+    this.currentResponseIdx = idx;
   }
 
 }
