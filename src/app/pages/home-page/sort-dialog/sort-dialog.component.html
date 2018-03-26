@@ -1,0 +1,34 @@
+<div class="sortContainer">
+  <div>
+    <h4>Sort Imposters</h4>
+    <div>
+      <em>
+        <i>Drag and Drop Items to establish new sort order</i>
+      </em>
+    </div>
+    <br>
+    <div class="sortHolder">
+
+      <bs-sortable [(ngModel)]="this.sortItems" 
+      fieldName="text"
+      itemClass="item"
+      itemActiveClass="sortable-item-active"
+      placeholderItem="Drag here"
+      placeholderClass="sortable-item"
+      wrapperClass="list">
+        
+      </bs-sortable>
+
+    </div>
+    <div>
+      <div>
+        <div style="margin-top: 5px">
+          <button type="submit" (click)="ok()" class="btn btn-primary">Submit</button>
+
+          <button type="submit" (click)="cancel()" class="btn btn-danger">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

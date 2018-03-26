@@ -6,6 +6,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { DecorateHelpComponent } from './../help/decorate-help/decorate-help.component';
 import { InjectionHelpComponent } from './../help/injection-help/injection-help.component';
 import { js_beautify } from 'js-beautify';
+import { SortDialogComponent } from './sort-dialog/sort-dialog.component';
 
 @Component({
   selector: 'app-home-page',
@@ -83,27 +84,13 @@ export class HomePageComponent implements OnInit {
     return 'Item ' + (idx + 1) + ' (' + verb + ')';
   }
 
-
-  composeSortAlias(idx) {
-    const imposter = this.currentCollection.imposters[idx];
-    let verb = imposter.match.verb;
-    if (imposter.match.injection.use) {
-      verb = 'INJ';
-    }
-    const labelText = imposter.documentation;
-    return '(' + verb + ')\n' + labelText;
-
-  }
-
   addImposter() {
     const newImposter = this.impostersService.createNewImposter();
     this.currentCollection.imposters.push(newImposter);
     this.save();
   }
 
-  sortImposters() {
 
-  }
 
   deleteImposter() {
     const doDelete = confirm('Delete this Imposter?');
@@ -159,7 +146,8 @@ export class HomePageComponent implements OnInit {
     if (!currentResponse.decorate) {
       currentResponse.decorate = '';
     }
-    // currentResponse.decorate = js_beautify(currentResponse.decorate);
+
+    currentResponse.decorate = js_beautify(currentResponse.decorate);
     this.save();
   }
 
@@ -220,8 +208,8 @@ export class HomePageComponent implements OnInit {
     const doDelete = confirm('Delete this Response?');
     if (doDelete) {
       this.currentCollection.imposters[this.currentImposterIdx]
-                .responses.splice(this.currentResponseIdx, 1);
-        this.currentResponseIdx = 0;
+        .responses.splice(this.currentResponseIdx, 1);
+      this.currentResponseIdx = 0;
     }
     this.save();
   }
@@ -241,5 +229,60 @@ export class HomePageComponent implements OnInit {
 
     this.currentResponseIdx = idx;
   }
+
+
+  ////////// sorting /////////////////////////////
+  sortImposters() {
+    const sortResult = this.showSortDialog();
+    const me = this;
+    // sortResult.
+    // sortResult.then(function (result) {
+    //   if (result !== 'cancel') {
+
+
+
+    //     me.currentCollection.imposters = [];
+    //     result.forEach(function (data, idx) {
+    //       me.currentCollection.imposters.push(data.ref);
+
+    //     });
+
+
+    //   }
+    // });
+  }
+
+
+  composeSortAlias(idx) {
+    const imposter = this.currentCollection.imposters[idx];
+    let verb = imposter.match.verb;
+    if (imposter.match.injection.use) {
+      verb = 'INJ';
+    }
+    const labelText = imposter.documentation;
+    return '(' + verb + ')\n' + labelText;
+
+  }
+
+
+  /**
+   * display the sorting dialog
+   * @returns {$uibModal@call;open.result}
+   */
+
+
+  showSortDialog() {
+    const me = this;
+    const sortItems = [];
+    me.currentCollection.imposters.forEach(function (data, idx) {
+      const dCopy = JSON.parse(JSON.stringify(data));
+      sortItems.push({ 'id': idx, 'ref': dCopy, 'text': me.composeSortAlias(idx) });
+    });
+    const initialState = { sortItems: sortItems };
+    this.bsModalRef = this.modalService.show(SortDialogComponent, { initialState });
+
+
+  }
+
 
 }

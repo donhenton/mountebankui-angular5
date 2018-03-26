@@ -14,11 +14,12 @@ import { LocalStorageModule } from './modules/local-storage/local-storage.module
 import { LocalStorageService } from './services/local-storage.service';
 import { ImpostersService } from './services/imposters.service';
 import { MountebankService } from './services/mountebank.service';
-import { AlertModule, TooltipModule, TabsModule, AccordionModule, ModalModule } from 'ngx-bootstrap';
+import { AlertModule, TooltipModule, TabsModule, AccordionModule, SortableModule, ModalModule } from 'ngx-bootstrap';
 import { ImposterSelectorComponent } from './shared/imposter-selector/imposter-selector.component';
 import { HeadersComponent } from './shared/headers/headers.component';
 import { DecorateHelpComponent } from './pages/help/decorate-help/decorate-help.component';
 import { InjectionHelpComponent } from './pages/help/injection-help/injection-help.component';
+import { SortDialogComponent } from './pages/home-page/sort-dialog/sort-dialog.component';
 
 
 const appRoutes: Routes = [
@@ -44,10 +45,11 @@ const appRoutes: Routes = [
     ImposterSelectorComponent,
     HeadersComponent,
     DecorateHelpComponent,
-    InjectionHelpComponent
+    InjectionHelpComponent,
+    SortDialogComponent
   ],
   entryComponents: [DecorateHelpComponent,
-    InjectionHelpComponent],
+    InjectionHelpComponent, SortDialogComponent],
   imports: [
     HttpModule,
     BrowserModule,
@@ -56,6 +58,7 @@ const appRoutes: Routes = [
     TabsModule.forRoot(),
     ModalModule.forRoot(),
     AccordionModule.forRoot(),
+    SortableModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     LocalStorageModule,
