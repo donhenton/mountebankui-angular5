@@ -15,7 +15,7 @@
 <br>
 <div class="row grouping-box">
   <span class="internalTitle">Submit To Mountebank</span>
-  <span ng-class='json.messageClasses'>{{this.message}}</span>
+  <span [ngClass]='this.messageClasses'>{{this.message}}</span>
   <form class="form-horizontal" id="mounteBankSubmitForm" [formGroup]="mounteBankSubmitForm">
     <div class="form-group">
       <label class="control-label col-sm-2" for="mounteBankUrl">Mountebank Url</label>

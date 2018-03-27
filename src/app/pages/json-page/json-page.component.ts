@@ -14,14 +14,17 @@ export class JsonPageComponent implements OnInit {
   message = '';
   displayData = 'fred';
   mounteBankSubmitForm: FormGroup;
+  mounteBankUrl = 'http://localhost:2525';
+  baseMessageClass = 'emphasis pull-right';
+  messageClasses = '';
 
 
   constructor(private impostersService: ImpostersService, fb: FormBuilder, private mounteBankService: MountebankService) {
 
     this.mounteBankSubmitForm = fb.group({
-      mounteBankUrl: ['http://localhost:2525', Validators.required]
+      mounteBankUrl: [this.mounteBankUrl, Validators.required]
     });
-    // this.mounteBankSubmitForm.valueChanges
+
     this.mounteBankSubmitForm.get('mounteBankUrl')
       .valueChanges
       .subscribe(this.handleUpdate.bind(this));
@@ -34,17 +37,67 @@ export class JsonPageComponent implements OnInit {
   }
 
   handleUpdate(data) {
-    //// console.log('data');
-    // this.displayData = data;
+    this.mounteBankUrl = data;
   }
 
 
   postToMountebank() {
-    console.log('post');
+    const success = this.handleSuccess.bind(this);
+    const error = this.handleError.bind(this);
+
+    this.mounteBankService
+      .postToMountebank(this.mounteBankUrl, this.displayData)
+      .subscribe(success, error);
 
   }
   deleteFromMountebank() {
-    console.log('delete');
+    const success = this.handleSuccess.bind(this);
+    const error = this.handleError.bind(this);
+    this.mounteBankService
+      .deleteFromMountebank(this.mounteBankUrl, this.currentImposter.port)
+      .subscribe(success, error);
   }
+
+
+  handleSuccess(response) {
+
+    // data is the return body
+    // status in int return code
+
+    if (response.status === 201) {
+      // successful add
+      this.messageClasses = this.baseMessageClass + ' text-success';
+      this.message = 'Successful add to Mountebank';
+    }
+    if (response.status === 200) {
+      // successful delete
+      this.messageClasses = this.baseMessageClass + ' text-success';
+      this.message = 'Successfully removed from Mountebank';
+    }
+
+  }
+
+  handleError(error) {
+    this.message = 'General Error';
+    this.messageClasses = this.baseMessageClass + ' text-danger';
+
+    switch (error.status) {
+
+      case -1:
+        this.message = 'Error: problem posting to Mountebank. ' +
+          'Mountebank server may need --allow-Injection mode';
+        break;
+      case 400:
+        this.message += ' only one submission per session';
+        break;
+      case 0:
+        this.message += ' server may not be started';
+        break;
+      default:
+        this.message = 'Error: ' + error.status + ' ' +
+          error.statusText;
+    }
+  }
+
 
 }
