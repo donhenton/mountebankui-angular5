@@ -247,18 +247,18 @@ export class HomePageComponent implements OnInit {
 
   /**
    * display the sorting dialog
-   * @returns {$uibModal@call;open.result}
+   *
    */
 
 
   sortImposters() {
     const me = this;
-    const sortItems = [];
-    me.currentCollection.imposters.forEach(function (data, idx) {
-      const dCopy = JSON.parse(JSON.stringify(data));
-      sortItems.push({ 'id': idx, 'ref': dCopy, 'text': me.composeSortAlias(idx) });
+    const sortItems =
+    me.currentCollection.imposters.map((data, idx) => {
+      return { 'id': idx, 'ref': data, 'text': me.composeSortAlias(idx) };
     });
-    const initialState = { sortItems: sortItems, containerRef: this, callBack: this.processSort.bind(this) };
+
+    const initialState = { sortItems: sortItems, containerRef: this };
     this.bsModalRef = this.modalService.show(SortDialogComponent, { initialState });
 
 
@@ -272,6 +272,7 @@ export class HomePageComponent implements OnInit {
         return s.ref;
       });
       me.currentCollection.imposters = newList;
+      me.save();
 
     }
   }
