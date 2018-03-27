@@ -7,6 +7,7 @@ import { DecorateHelpComponent } from './../help/decorate-help/decorate-help.com
 import { InjectionHelpComponent } from './../help/injection-help/injection-help.component';
 import { js_beautify } from 'js-beautify';
 import { SortDialogComponent } from './sort-dialog/sort-dialog.component';
+import { ModalOptions } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-home-page',
@@ -258,9 +259,11 @@ export class HomePageComponent implements OnInit {
       return { 'id': idx, 'ref': data, 'text': me.composeSortAlias(idx) };
     });
 
-    const initialState = { sortItems: sortItems, containerRef: this };
-    this.bsModalRef = this.modalService.show(SortDialogComponent, { initialState });
 
+    const initialState: ModalOptions = {};
+    initialState.class = 'main-sort-dialog';
+    initialState.initialState = { sortItems: sortItems, containerRef: this };
+    this.bsModalRef = this.modalService.show(SortDialogComponent, initialState );
 
   }
 

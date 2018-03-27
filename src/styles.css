@@ -147,3 +147,9 @@ div.injectionContainer
 {
      border: #1b6d85 ridge; width:90%; padding:10px 
 }
+
+
+.main-sort-dialog {
+    width: 400px;
+    text-align: center;
+}
