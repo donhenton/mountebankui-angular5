@@ -956,6 +956,7 @@ harness.imposterTest.newCollection = [
                         'body': ''
                     }
                 ],
+                'documentation': 'enter docs here',
                 'match': {
                     'path_match': {
                         'type': 'equals',

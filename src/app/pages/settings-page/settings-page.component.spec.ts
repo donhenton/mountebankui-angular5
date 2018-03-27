@@ -4,6 +4,7 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import { LocalStorageModule } from '../../modules/local-storage/local-storage.module';
 import { SettingsPageComponent } from './settings-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ImposterSelectorComponent } from '../../shared/imposter-selector/imposter-selector.component';
 
 describe('SettingsPageComponent', () => {
   let component: SettingsPageComponent;
@@ -17,7 +18,7 @@ describe('SettingsPageComponent', () => {
         LocalStorageModule
       ],
       providers: [ImpostersService, LocalStorageService],
-      declarations: [ SettingsPageComponent ]
+      declarations: [ SettingsPageComponent, ImposterSelectorComponent ]
     })
     .compileComponents();
   }));

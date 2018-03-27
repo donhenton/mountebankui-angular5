@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { AlertModule, TooltipModule, TabsModule, AccordionModule, SortableModule, ModalModule, BsModalRef } from 'ngx-bootstrap';
 import { DecorateHelpComponent } from './decorate-help.component';
 
 describe('DecorateHelpComponent', () => {
@@ -8,7 +8,12 @@ describe('DecorateHelpComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DecorateHelpComponent ]
+      declarations: [ DecorateHelpComponent ],
+      imports: [
+
+        ModalModule.forRoot()
+    ],
+    providers: [BsModalRef],
     })
     .compileComponents();
   }));

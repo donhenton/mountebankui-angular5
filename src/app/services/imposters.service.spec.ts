@@ -109,9 +109,9 @@ describe('ImpostersService', () => {
     const expectedStuffObj = harness.getHarness().imposterTest.newCollection;
 
     const expectedStuff: string = harness.stringify(expectedStuffObj);
-    // console.log('exported\n\n\n' + exportedStuff + '\n\n\n');
-    // console.log('expected\n\n\n' + expectedStuff + '\n\n\n');
-    // console.log(typeof expectedStuff);
+    console.log('exported\n\n\n' + exportedStuff + '\n\n\n');
+    console.log('expected\n\n\n' + expectedStuff + '\n\n\n');
+    console.log(typeof expectedStuff);
     const dist = harness.getEditDistance(exportedStuff, expectedStuff);
     expect(dist).toEqual(0);
 

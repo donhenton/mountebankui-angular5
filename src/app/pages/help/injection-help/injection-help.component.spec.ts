@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { AlertModule, TooltipModule, TabsModule, AccordionModule, SortableModule, ModalModule, BsModalRef } from 'ngx-bootstrap';
 import { InjectionHelpComponent } from './injection-help.component';
 
 describe('InjectionHelpComponent', () => {
@@ -8,7 +8,12 @@ describe('InjectionHelpComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InjectionHelpComponent ]
+      declarations: [ InjectionHelpComponent ],
+      imports: [
+
+        ModalModule.forRoot()
+    ],
+    providers: [BsModalRef],
     })
     .compileComponents();
   }));
