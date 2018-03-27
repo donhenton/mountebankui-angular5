@@ -1,7 +1,9 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, fakeAsync } from '@angular/core/testing';
+
 import {
   BaseRequestOptions,
   Http,
+  Headers,
   Response,
   ResponseOptions,
   RequestMethod,
@@ -9,6 +11,7 @@ import {
   JSONPBackend
 } from '@angular/http';
 import {
+
   MockBackend,
   MockConnection
 } from '@angular/http/testing';
@@ -16,7 +19,8 @@ import { MountebankService } from './mountebank.service';
 import harness from './../../../testing/harness';
 
 describe('MountebankService', () => {
-
+  let serviceRef: MountebankService;
+  let backendRef: MockBackend;
 
   beforeEach(() => {
 
@@ -34,6 +38,9 @@ describe('MountebankService', () => {
           deps: [MockBackend, BaseRequestOptions]
         }]
     });
+
+    backendRef = TestBed.get(MockBackend);
+    serviceRef = TestBed.get(MountebankService);
 
   });
 
@@ -82,5 +89,36 @@ describe('MountebankService', () => {
       expect(dist).toEqual(0);
 
     }));
+
+  fit('should show a fake post to mountebank', fakeAsync(() => {
+    const response = {success: true};
+    const  hh = new Headers();
+    hh.append('fred', 'ted');
+    backendRef.connections.subscribe(connection => {
+      connection.mockRespond(new Response(<ResponseOptions>{
+        body: JSON.stringify(response),
+        status: 200,
+        headers: hh
+      }));
+    });
+
+    const success =  (data) => {
+
+     // console.log(data);
+    };
+    const err = (e) => {
+
+    };
+
+
+    serviceRef.postToMountebank('http://fred.com', {}).subscribe(success, err);
+
+
+
+  }));
+
+
+
+
 
 });
