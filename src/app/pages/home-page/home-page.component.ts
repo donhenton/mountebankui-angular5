@@ -232,26 +232,6 @@ export class HomePageComponent implements OnInit {
 
 
   ////////// sorting /////////////////////////////
-  sortImposters() {
-    const sortResult = this.showSortDialog();
-    const me = this;
-    // sortResult.
-    // sortResult.then(function (result) {
-    //   if (result !== 'cancel') {
-
-
-
-    //     me.currentCollection.imposters = [];
-    //     result.forEach(function (data, idx) {
-    //       me.currentCollection.imposters.push(data.ref);
-
-    //     });
-
-
-    //   }
-    // });
-  }
-
 
   composeSortAlias(idx) {
     const imposter = this.currentCollection.imposters[idx];
@@ -271,18 +251,29 @@ export class HomePageComponent implements OnInit {
    */
 
 
-  showSortDialog() {
+  sortImposters() {
     const me = this;
     const sortItems = [];
     me.currentCollection.imposters.forEach(function (data, idx) {
       const dCopy = JSON.parse(JSON.stringify(data));
       sortItems.push({ 'id': idx, 'ref': dCopy, 'text': me.composeSortAlias(idx) });
     });
-    const initialState = { sortItems: sortItems };
+    const initialState = { sortItems: sortItems, containerRef: this, callBack: this.processSort.bind(this) };
     this.bsModalRef = this.modalService.show(SortDialogComponent, { initialState });
 
 
   }
 
+  public processSort(type, sortResult) {
+    const me = this;
+    if (type === 'ok') {
+
+      const newList = sortResult.map(s => {
+        return s.ref;
+      });
+      me.currentCollection.imposters = newList;
+
+    }
+  }
 
 }

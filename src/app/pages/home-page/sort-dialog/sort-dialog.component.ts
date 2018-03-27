@@ -10,21 +10,22 @@ import { BsModalRef } from 'ngx-bootstrap';
 export class SortDialogComponent implements OnInit {
 
   sortItems = [];
-  fred = [{id: 1, name: 'alpha'}, {id: 2, name: 'beta'}, {id: 3 , name: 'ted'}];
-
-  @Output() resultOutput = new EventEmitter();
+  containerRef;
 
   constructor(public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
-    console.log(this.sortItems);
   }
 
   ok() {
+
+    this.containerRef.processSort('ok', this.sortItems);
     this.bsModalRef.hide();
   }
 
   cancel() {
+
+    this.containerRef.processSort('cancel', this.sortItems);
     this.bsModalRef.hide();
   }
 
