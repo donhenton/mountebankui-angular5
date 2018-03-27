@@ -1,3 +1,32 @@
-<p>
-  headers works!
-</p>
+<div class="form-group grouping-box">
+  <div class="internalHeaderRow">
+      <span class="internalHeader">{{this.headerText}}</span> 
+
+      <button (click)="this.addResponseHeader()" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-plus-sign"></i>Add</button>
+
+  </div>
+  <div class="limitY" style="height:120px">
+
+      <div *ngFor="let header of this.headersArray; let idx = index"> 
+
+          <div class="row">
+
+              <label class="control-label col-sm-1" for="status">{{this.keyLabel}}</label> 
+
+              <div class="col-sm-4">
+                  <input (input)="inputChange(this, $event)" type="text" class="form-control input-sm"   id="response_key_{{idx}}" name="status" [(ngModel)]="header.key" required>
+              </div>
+              <label class="control-label col-sm-1" for="status">Value</label> 
+              <div class="col-sm-4">
+                  <input (input)="inputChange(this, $event)" type="text" class="form-control input-sm"   id="response_value_{{idx}}" name="status" [(ngModel)]="header.value" required>
+
+              </div>
+              <div class="col-sm-1 center-block">
+                  <button style="height:100%" (click)="deleteResponseHeader(idx)" class="center-block btn btn-danger btn-sm"><i  class="glyphicon glyphicon-minus-sign"></i> Delete</button>
+
+              </div>
+          </div>
+
+      </div>
+  </div>
+</div>

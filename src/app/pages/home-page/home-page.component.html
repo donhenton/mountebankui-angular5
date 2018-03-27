@@ -128,7 +128,7 @@
           <i *ngIf="!this.currentCollection.imposters[this.currentImposterIdx].responses[this.currentResponseIdx].injection.use" >(Click on the section below)</i> 
           <accordion close-others="false">
               <accordion-group heading="Headers">
-                  <app-headers array="this.currentCollection.imposters[this.currentImposterIdx].responses[this.currentResponseIdx].headers"></app-headers>
+                  <app-headers [headersArray]="this.currentCollection.imposters[this.currentImposterIdx].responses[this.currentResponseIdx].headers"></app-headers>
               </accordion-group>
               <accordion-group heading="Body">
                   <div class="form-group grouping-box">
