@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, forwardRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, forwardRef, Output, EventEmitter, Renderer2, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -23,7 +23,7 @@ export class ImposterSelectorComponent implements OnInit, ControlValueAccessor {
   onChange: any = () => { };
   onTouched: any = () => { };
 
-  constructor() { }
+  constructor(private _renderer: Renderer2, private _elementRef: ElementRef) {}
 
   ngOnInit() {
     // console.log(this.parentForm);
@@ -64,6 +64,10 @@ export class ImposterSelectorComponent implements OnInit, ControlValueAccessor {
     // registers a handler to be called when the component receives a touch event, useful for knowing if the component has been focused
     this.onTouched = fn;
   }
+
+  setDisabledState(isDisabled: boolean): void {
+     this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
+   }
 
 }
 
