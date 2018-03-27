@@ -176,6 +176,129 @@
       <tab heading="Match Criteria" (select)="this.tabSelect('Criteria')">
 
 
+
+        <br>
+        <section class="form-horizontal">  
+            <div>
+                <input id="injectionUse" name="injectionUse" type="checkbox"  (click)="this.swapInjectionForMatch()"  [(ngModel)]="this.currentCollection.imposters[this.currentImposterIdx].match.injection.use">  
+
+                <label  *ngIf="!this.currentCollection.imposters[this.currentImposterIdx].match.injection.use" for="injectionUse"><em style="padding:5px">Click To Use Injection <span class="label label-danger"> All other criteria will be lost</span></em></label> 
+
+                <label  *ngIf="this.currentCollection.imposters[this.currentImposterIdx].match.injection.use"  for="injectionUse"><em style="padding:5px">Click To Use Standard <span class="label label-danger"> Injection criteria will be lost</span></em></label> 
+
+            </div>
+            <br>
+            <div *ngIf="!this.currentCollection.imposters[this.currentImposterIdx].match.injection.use" class="row">
+
+
+
+                <div class="form-group">
+                    <label class="control-label col-sm-1" for="path">Path</label> 
+
+
+                    <div class="col-sm-2">
+                        <select   class="form-control"   id="response_verb" name="verb" [(ngModel)]="this.currentCollection.imposters[this.currentImposterIdx].match.path_match.type" required>
+
+                            <option *ngFor="let item of this.matchTypes" value="{{item}}">{{item}}</option>   
+
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <input (input)="this.inputChange(this, $event)" type="text" class="form-control"   id="response_path" name="status" [(ngModel)]="this.currentCollection.imposters[this.currentImposterIdx].match.path_match.value" required>
+                    </div>
+
+
+                    <label class="control-label col-sm-1" for="verb">Verb</label> 
+
+                    <div class="col-sm-2">
+                        <select (input)="this.inputChange(this, $event)"  class="form-control"   id="response_verb" name="verb" [(ngModel)]="this.currentCollection.imposters[this.currentImposterIdx].match.verb" required>
+                            <option>GET</option>
+                            <option>POST</option>
+                            <option>PUT</option>
+                            <option>DELETE</option>
+                            <option>OPTIONS</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <i *ngIf="!this.currentCollection.imposters[this.currentImposterIdx].match.injection.use" >(Click on the section below)</i>
+            <accordion  *ngIf="!this.currentCollection.imposters[this.currentImposterIdx].match.injection.use" close-others="false">
+
+
+
+
+                <accordion-group heading="Headers">
+                  <app-headers [headersArray]="this.currentCollection.imposters[this.currentImposterIdx].match.headers"></app-headers>
+                </accordion-group>
+                <accordion-group   heading="Body">
+
+                    <div class="form-group grouping-box">
+
+
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="path">Match Type</label> 
+                            <div class="col-sm-3">
+                                <select   class="form-control"   id="response_verb" name="verb" [(ngModel)]="this.currentCollection.imposters[this.currentImposterIdx].match.body_match.type" required>
+                                      <option *ngFor="let item of this.matchTypes" value="{{item}}">{{item}}</option>   
+                                </select>
+                            </div>
+                            <br/>
+                        </div>
+                        <div class="internalHeaderRow">
+
+                            <span 
+                                *ngIf="this.isJsonString(this.currentCollection.imposters[this.currentImposterIdx].match.body_match.body)"
+                                >
+                                <button (click)="this.formatJson('matchBody', true)" class="btn btn-primary btn-xs">Pretty Print JSON</button>
+                                <button (click)="this.formatJson('matchBody', false)" class="btn btn-primary btn-xs">Unformat JSON</button>
+                            </span>
+                        </div>
+                        <br>    
+                        <div>
+                            <textarea  (input)="this.inputChange(this, $event)" class="form-control" [(ngModel)]="this.currentCollection.imposters[this.currentImposterIdx].match.body_match.body" style="width:98%;height:150px"></textarea>
+                        </div>
+                    </div>
+                </accordion-group>
+
+                <accordion-group heading="Query Params">
+
+                  <app-headers [keyLabel]="'Param'"  [headersArray]="this.currentCollection.imposters[this.currentImposterIdx].match.query_params"></app-headers>
+                </accordion-group>  
+            </accordion>
+
+
+            <div *ngIf="this.currentCollection.imposters[this.currentImposterIdx].match.injection.use">
+
+                <div class="injectionContainer">
+
+                    <div>
+                        <button class="btn btn-small" (click)="this.formatInjection(this.currentCollection.imposters[this.currentImposterIdx].match.injection)"   href="">Format</button>
+
+                        <a  (click)="$event.preventDefault(); this.doHelpDisplay('predicate')" class="pull-right" href="">Match Injection Help</a>
+                    </div>
+                    <br>
+                    <div>
+                        <textarea  (input)="this.inputChange(this, $event)" class="form-control" [(ngModel)]="this.currentCollection.imposters[this.currentImposterIdx].match.injection.body" style="width:100%;height:350px"></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+          </section>
+
+
+
+
+
+
+
       </tab>
 
     </tabset>
