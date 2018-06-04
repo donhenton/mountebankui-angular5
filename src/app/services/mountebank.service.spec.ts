@@ -61,14 +61,14 @@ describe('MountebankService', () => {
 
     }));
 
-  it('useCORs should should not create OPTION', inject([MockBackend, MountebankService],
+  it('useCORs should not create OPTION', inject([MockBackend, MountebankService],
     (backend: MockBackend, service: MountebankService) => {
       const tt = service.translate(harness.getHarness().imposterCollection[0]);
       expect(tt.indexOf('OPTION') < 0);
 
     }));
 
-  it('useCORs should should  create OPTION', inject([MockBackend, MountebankService],
+  it('useCORs should create OPTION', inject([MockBackend, MountebankService],
     (backend: MockBackend, service: MountebankService) => {
 
 
@@ -86,11 +86,12 @@ describe('MountebankService', () => {
       const expectedOutput = harness.stringify(harness.getHarness().expected[1]);
       const actualOutput = service.translate(input);
       const dist = harness.getEditDistance(expectedOutput, actualOutput);
+
       expect(dist).toEqual(0);
 
     }));
 
-  fit('should show a fake post to mountebank', fakeAsync(() => {
+  it('should show a fake post to mountebank', fakeAsync(() => {
     const response = {success: true};
     const  hh = new Headers();
     hh.append('fred', 'ted');
